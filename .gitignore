@@ -1,2 +1,5 @@
 # Ignore data
 /data/*
+
+# Ignore development files
+/dev/*

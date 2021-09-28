@@ -160,7 +160,7 @@ messageRelations <- function(relative_freqs){
     cliPrintLine(social_val, "node_1", "people_id or group_id")
 }
 
-print.validation <- function(validation){
+Sprint.validation <- function(validation){
 
     # Column names information
     messageColumns(validation$details$columns)
@@ -176,9 +176,6 @@ print.validation <- function(validation){
 
     # Group size
     messageGroups(validation$group_size)
-
-    # Summary
-    # messageValidity(validation$details)
 }
 
 print.partial.validation <- function(partial.validation){

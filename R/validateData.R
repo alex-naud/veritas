@@ -119,7 +119,6 @@ validateData <- function(locations, people, groups, relations) {
 
     # validate column names
     validation$columns <- validateColumns(veritas_data)
-    # messageColumns(validation$columns)
 
     # Stop if not all columns are validated
     if(!all(unlist(validation$columns))) {
@@ -134,25 +133,18 @@ validateData <- function(locations, people, groups, relations) {
     # Duplicated ids
     dupli_ids <- duplicatedIds(veritas_data)
     validation$dupli_ids <- all(dupli_ids == 0)
-    # messageCount(dupli_ids, "Duplicated ids")
 
     # PIDs in locations
     pids_locations <- comparePIDs(veritas_data)
     validation$pids_locations <- all(pids_locations == 0)
-    # messageCount(pids_locations, "PIDs not in locations table")
 
     # Check relation table
     freq_relations <- compareRelationIds(veritas_data)
     validation$relations <- validateRelations(freq_relations$relative)
-    # messageRelations(freq_relations$relative)
 
     # Group size == 0, 1 or smaller than number of people in it
     group_data <- modifiedGroupSize(veritas_data)
     validation$group_size <- all(group_data$size_no_ind > 0)
-    # messageGroups(group_data)
-
-    # Summarize validation
-    # messageValidity(validation)
 
     # Create output
     out <- list(valide = all(unlist(validation)),
@@ -168,8 +160,6 @@ validateData <- function(locations, people, groups, relations) {
 
     # Return
     return(out)
-
-
 }
 
 validateRelations <- function(relative_freqs) {

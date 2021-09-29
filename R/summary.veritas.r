@@ -21,9 +21,11 @@ summary.veritas.pid <- function(veritas_pid){
     pid <- veritas_pid$locations$pid
 
     # Extract count
-    nb_locations <- length(unique(veritas_pid$locations$location_id))
-    nb_people <- length(unique(veritas_pid$people$people_id))
-    nb_groups <- length(unique(veritas_pid$groups$group_id))
+    nb_locations <- length(veritas_pid$locations$location_id)
+    nb_people <- length(veritas_pid$people$people_id)
+    nb_groups <- length(veritas_pid$groups$group_id)
+
+    if(!is.null(veritas_pid$relations)) {
 
     nb_relations_people <- veritas_pid$relations |>
                                 subset(relation_type == 1) |>
@@ -32,11 +34,17 @@ summary.veritas.pid <- function(veritas_pid){
     nb_relations_groups <- veritas_pid$relations |>
                                 subset(relation_type == 2) |>
                                 nrow()
-    
+
     nb_relations_locations <- veritas_pid$relations |>
                                 subset(relation_type == 3) |>
                                 nrow()
-    
+
+    } else {
+        nb_relations_people <- 0
+        nb_relations_groups <- 0
+        nb_relations_locations <- 0
+    }
+
     # Print
     cli::cli_h2("nodes")
     cli::cli_text("{nb_locations} locations")

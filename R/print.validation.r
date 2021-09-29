@@ -160,7 +160,7 @@ messageRelations <- function(relative_freqs){
     cliPrintLine(social_val, "node_1", "people_id or group_id")
 }
 
-Sprint.validation <- function(validation){
+print.validation <- function(validation){
 
     # Column names information
     messageColumns(validation$details$columns)

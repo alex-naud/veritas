@@ -29,7 +29,7 @@ transformData <- function(locations, people, groups, relations){
     names(split_data) <- c("locations", "people", "groups", "relations")
 
     # Extract PIDs
-    pids <- names(split_data$locations)
+    pids <- unique(locations$pid)
 
     # function to add empty object
     addEmpty <- function(split_df, pids){
@@ -62,7 +62,7 @@ transformData <- function(locations, people, groups, relations){
     # Append empty to all
     split_data <- lapply(split_data, addEmpty, pids)
 
-    # Create list by PIDs
+    # Aggregate data by PIDs
     out <- lapply(pids, function(x){
                             list(locations = split_data[["locations"]][[x]],
                                  people = split_data[["people"]][[x]],
@@ -70,8 +70,9 @@ transformData <- function(locations, people, groups, relations){
                                  relations = split_data[["relations"]][[x]])
     })
 
-    # Add pid names
+    # Add PIDs as list element names and attributes
     names(out) <- pids
+    for(pid in names(out)) attr(out[[pid]], "pid") <- pid
 
     # Add S3 class
     class(out) <- "veritas.raw"

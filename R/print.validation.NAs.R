@@ -1,3 +1,8 @@
+#' Print NAs validation
+#' 
+#' @param validation_NAs Object returned by [validateNAs()]
+#' 
+#' @return NULL | Print in CLI information on NA validation
 print.validation.NAs <- function(validation_NAs){
 
     # Create header
@@ -15,19 +20,19 @@ print.validation.NAs <- function(validation_NAs){
 
         # Statement
         cli::cli_alert_success("We did not find any of those in numerical variables")
-        
+
         # String variables warning
         cli::cli_alert("{.emph Check manually in string variables!}")
-        
+
     } else {
 
         # Statement
         cli::cli_alert_warning(
             "We found potential numerical NAs in the following columns")
-        
+
         # String variables warning
         cli::cli_alert_warning("{.emph Check manually in string columns!}")
-        
+
         # Empty space
         cli::cli_text()
 
@@ -38,11 +43,10 @@ print.validation.NAs <- function(validation_NAs){
 
         # Subset for table with NAs
         for(i in names(index)){
-            
+
             if(index[i]) {
 
                 # Table name
-                # cli::cli_text(paste0("{.strong ", i, "}"))
                 cli::cli_h2(i)
 
                 # Extract column names and print

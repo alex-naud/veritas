@@ -1,3 +1,12 @@
+#' Split veritas data by pid
+#'
+#' @param locations location table
+#' @param people people table
+#' @param groups groups table
+#' @param relations relations table
+#'
+#' @return A list of table list comprising locations, people,
+#' groups and relationships by pid
 transformData <- function(locations, people, groups, relations){
 
     # Process started
@@ -75,8 +84,8 @@ transformData <- function(locations, people, groups, relations){
     for(pid in names(out)) attr(out[[pid]], "pid") <- pid
 
     # Add S3 class
-    class(out) <- "veritas.raw"
-    for (i in seq_along(out)) class(out[[i]]) <- 'veritas.pid'
+    class(out) <- "veritas.split"
+    for (i in seq_along(out)) class(out[[i]]) <- "veritas.pid"
 
     # Add summary information as attributes
     attr(out, "nb_locations") <- nrow(locations)

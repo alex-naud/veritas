@@ -6,14 +6,14 @@
 #' @seealso [createSingleSocialNetwork()] which this function wraps
 #'
 #' @return list of igraph networks
-createSocialNetworks <- function(veritas_raw, group_scale = TRUE) {
+createSocialNetworks <- function(veritas_all, group_scale = TRUE) {
 
 
     # Print process start
     cli::cli_alert_info("Generating Social Networks")
 
     # Create all social network
-    network_list <- lapply(veritas_raw,
+    network_list <- lapply(veritas_all,
                            createSingleSocialNetwork,
                            group_scale)
 

@@ -1,3 +1,8 @@
+#' Calculate social network measures for interact project
+#'
+#' @param veritas_data Transformed data generated from [transformData()]
+#'
+#' @return Table of social network measures
 interactSnMeasures <- function(veritas_data){
 
     calculateMeasures <- function(veritas_pid){

@@ -1,3 +1,16 @@
+#' Check if there is numerical NAs
+#' 
+#' Check for negative values or 99s in numerical variables
+#' 
+#' @param locations location table
+#' @param people people table
+#' @param groups groups table
+#' @param relations relations table
+#' 
+#' @return list of validation information. 
+#' Valide is a boolean indicating wether there potentialy is
+#' non standard NAs. Details is the number of non standard NAs by
+#' variables in each table.
 validateNAs <- function(locations, people, groups, relations){
 
     # Create list
@@ -16,7 +29,7 @@ validateNAs <- function(locations, people, groups, relations){
         numeric_index[grepl("(p|_)id$", names(numeric_index))] <- FALSE
 
         subset(x, select = numeric_index) |>
-               lapply(function(x) any(na.exclude(x) < 0 | na.exclude(x) %in% 99))
+            lapply(function(x) any(na.exclude(x) < 0 | na.exclude(x) %in% 99))
 
         })
 

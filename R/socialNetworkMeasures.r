@@ -1,3 +1,9 @@
+#' Calculate network measures from veritas generated social networks
+#' 
+#' @param social_networks networks generated with [createSocialNetwork()]
+#' 
+#' @return degree (people, groups, all), clustering coefficient and
+#' simmelian brokerage
 socialNetworkMeasures <- function(social_networks){
 
     # Create a function to calculate measure on a single network
@@ -32,13 +38,14 @@ socialNetworkMeasures <- function(social_networks){
     return(out)
 }
 
+#' Calculate Simmelian Brokerage
+#' Adapted from a code by Christopher G. Watson; cgwatson@bu.edu
+#' Retrieve from https://pastebin.com/XqkEYtJS
+#'
+#' @param g igraph network object generated with createSocialNetwork.r
+#'
+#' @return Simmelian Brokerage measure
 simmelianBrokerage <- function(g){
-# Adapted from a code by Christopher G. Watson; cgwatson@bu.edu
-# Retrieve from https://pastebin.com/XqkEYtJS
-# Calculate simmelian brokerage for the ego of a social network
-#
-# g: igraph network object
-
 
   # Return NA if there is only less than two alter
   if(igraph::vcount(g) < 2) {

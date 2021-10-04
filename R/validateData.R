@@ -1,3 +1,10 @@
+#' Check if PIDs in people, groups and relations tables are found
+#' in locations table
+#'
+#' @param veritas_data A list of locations, people, groups and 
+#' relations table
+#'
+#' @return The number of PIDs NOT in locations table
 comparePIDs <- function(veritas_data){
 
     # Check if pids are in location table
@@ -8,6 +15,14 @@ comparePIDs <- function(veritas_data){
         })
 }
 
+#' Check that nodes in relation tables are in locations, people
+#' and groups table
+#'
+#' @param veritas_data A list of locations, people, groups and 
+#' relations table
+#'
+#' @return Two tables of absolute and relative frequencies
+#' of nodes in locations, people and groups table
 compareRelationIds <- function(veritas_data) {
 
     # Split by relation_type
@@ -46,6 +61,12 @@ compareRelationIds <- function(veritas_data) {
     return(list(absolute = absolute_freqs, relative = relative_freqs))
 }
 
+#' Check if there is duplicated nodes in locations, people and groups
+#'
+#' @param veritas_data A list of locations, people, groups and 
+#' relations table
+#'
+#' @return Number of duplicated nodes in each table 
 duplicatedIds <- function(veritas_data){
 
     dupli_ids <- mapply(function(x, y) sum(duplicated(x$y)),
@@ -57,6 +78,12 @@ duplicatedIds <- function(veritas_data){
     return(dupli_ids)
 }
 
+#' Calculate group sizes minus people in groups
+#'
+#' @param veritas_data A list of locations, people, groups and
+#' relations table
+#'
+#' @return Modified group sizes
 modifiedGroupSize <- function(veritas_data) {
 
     # Calculate number of individuals in groups
@@ -77,6 +104,12 @@ modifiedGroupSize <- function(veritas_data) {
     return(group_data)
 }
 
+#' Check if there is the right column names in each table
+#'
+#' @param veritas_data A list of locations, people, groups and
+#' relations table
+#'
+#' @return List of validated column names
 validateColumns <- function(veritas_data){
 
     fun <- function(col_names, table) {
@@ -106,6 +139,18 @@ validateColumns <- function(veritas_data){
     return(v_col)
 }
 
+#' Run validation on veritas tables
+#'
+#' @param locations location table
+#' @param people people table
+#' @param groups groups table
+#' @param relations relations table
+#'
+#' @seealso Run [comparePIDs()], [compareRelationIds()],
+#' [duplicatedIds()], [duplicatedIds()], [modifiedGroupSize()],
+#' [validateColumns()], [validateRelations()]
+#'
+#' @return List of validation information
 validateData <- function(locations, people, groups, relations) {
 
     # Create list
@@ -162,6 +207,14 @@ validateData <- function(locations, people, groups, relations) {
     return(out)
 }
 
+#' Validate that nodes in relation table are from the
+#' right tables
+#'
+#' @param relative_freqs Relative frequencies of node ids
+#' in locations, people, and groups tables.
+#' Generated from [compareRelationIds()]
+#'
+#' @return Boolean value indicating if nodes are from the right table
 validateRelations <- function(relative_freqs) {
 
     # Compare with expected values

@@ -3,3 +3,9 @@
 
 # Ignore development files
 /dev/*
+
+# Ignore R package R (for now...)
+/man/*
+/DESCRIPTION
+/NAMESPACE
+/Read-and-delete-me

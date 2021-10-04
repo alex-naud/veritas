@@ -13,8 +13,8 @@ createSocialNetworks <- function(veritas_raw, group_scale = TRUE) {
     cli::cli_alert_info("Generating Social Networks")
 
     # Create all social network
-    network_list <- lapply(veritas_raw, 
-                           createSingleSocialNetwork, 
+    network_list <- lapply(veritas_raw,
+                           createSingleSocialNetwork,
                            group_scale)
 
     # Print process start
@@ -29,7 +29,7 @@ createSocialNetworks <- function(veritas_raw, group_scale = TRUE) {
 #' @param group_scale: is the number of vertex generated from group are scaled
 #'                     to the square root?
 #'
-#' @seealso [createPeopleData()] and [createGroupData()] 
+#' @seealso [createPeopleData()] and [createGroupData()]
 #'          which this function call
 #'
 #' @return A single igraph network
@@ -78,6 +78,9 @@ createSingleSocialNetwork <- function(veritas_pid, group_scale = TRUE){
 
     # Remove multiedges in case of redundancy in relation table
     g <- igraph::simplify(g, remove.multiple = TRUE, remove.loops = TRUE)
+
+    # Add class
+    # class(g) <- c("igraph", "veritas.social.network")
 
     # Return network
     return(g)

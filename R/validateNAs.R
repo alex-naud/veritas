@@ -7,7 +7,7 @@
 #' @param groups groups table
 #' @param relations relations table
 #' 
-#' @return list of validation information. 
+#' @return list of validation information.
 #' Valide is a boolean indicating wether there potentialy is
 #' non standard NAs. Details is the number of non standard NAs by
 #' variables in each table.

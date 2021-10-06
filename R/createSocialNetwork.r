@@ -33,8 +33,9 @@ createSocialNetworks <- function(veritas_split, group_scale = TRUE) {
 #'
 #' @seealso [createPeopleData()] and [createGroupData()]
 #'          which this function call
-#'
+#''
 #' @return A single igraph network
+#' @export
 createSingleSocialNetwork <- function(veritas_pid, group_scale = TRUE){
 
     # Extract pid

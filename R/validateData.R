@@ -1,3 +1,72 @@
+#' Run validation on veritas tables
+#'
+#' @param locations location table
+#' @param people people table
+#' @param groups groups table
+#' @param relations relations table
+#'
+#' @seealso Run [comparePIDs()], [compareRelationIds()],
+#' [duplicatedIds()], [duplicatedIds()], [modifiedGroupSize()],
+#' [validateColumns()], [validateRelations()]
+#'
+#' @return List of validation information
+#' @export
+validateData <- function(locations, people, groups, relations) {
+
+    # Create list
+    veritas_data <- list(locations = locations,
+                         people = people,
+                         groups = groups,
+                         relations = relations)
+
+    # Create an empty list to store validation TRUE/FALSE
+    validation <- list()
+
+    # validate column names
+    validation$columns <- validateColumns(veritas_data)
+
+    # Stop if not all columns are validated
+    if(!all(unlist(validation$columns))) {
+
+        # Return partial validation
+        out <- list(valide = FALSE,
+                    details = validation)
+        class(out) <- "partial.validation"
+        return(out)
+    }
+
+    # Duplicated ids
+    dupli_ids <- duplicatedIds(veritas_data)
+    validation$dupli_ids <- all(dupli_ids == 0)
+
+    # PIDs in locations
+    pids_locations <- comparePIDs(veritas_data)
+    validation$pids_locations <- all(pids_locations == 0)
+
+    # Check relation table
+    freq_relations <- compareRelationIds(veritas_data)
+    validation$relations <- validateRelations(freq_relations$relative)
+
+    # Group size == 0, 1 or smaller than number of people in it
+    group_data <- modifiedGroupSize(veritas_data)
+    validation$group_size <- all(group_data$size_no_ind > 0)
+
+    # Create output
+    out <- list(valide = all(unlist(validation)),
+                details = validation,
+                duplicated_ids = dupli_ids,
+                pids_locations = pids_locations,
+                freq_relations = freq_relations,
+                group_size = group_data[c("pid", "group_id", "group_size",
+                                          "nb_ind", "size_no_ind")])
+
+    # Add S3 class
+    class(out) <- "validation"
+
+    # Return
+    return(out)
+}
+
 #' Check if PIDs in people, groups and relations tables are found
 #' in locations table
 #'
@@ -137,74 +206,6 @@ validateColumns <- function(veritas_data){
 
     # return validation
     return(v_col)
-}
-
-#' Run validation on veritas tables
-#'
-#' @param locations location table
-#' @param people people table
-#' @param groups groups table
-#' @param relations relations table
-#'
-#' @seealso Run [comparePIDs()], [compareRelationIds()],
-#' [duplicatedIds()], [duplicatedIds()], [modifiedGroupSize()],
-#' [validateColumns()], [validateRelations()]
-#'
-#' @return List of validation information
-validateData <- function(locations, people, groups, relations) {
-
-    # Create list
-    veritas_data <- list(locations = locations,
-                         people = people,
-                         groups = groups,
-                         relations = relations)
-
-    # Create an empty list to store validation TRUE/FALSE
-    validation <- list()
-
-    # validate column names
-    validation$columns <- validateColumns(veritas_data)
-
-    # Stop if not all columns are validated
-    if(!all(unlist(validation$columns))) {
-
-        # Return partial validation
-        out <- list(valide = FALSE,
-                    details = validation)
-        class(out) <- "partial.validation"
-        return(out)
-    }
-
-    # Duplicated ids
-    dupli_ids <- duplicatedIds(veritas_data)
-    validation$dupli_ids <- all(dupli_ids == 0)
-
-    # PIDs in locations
-    pids_locations <- comparePIDs(veritas_data)
-    validation$pids_locations <- all(pids_locations == 0)
-
-    # Check relation table
-    freq_relations <- compareRelationIds(veritas_data)
-    validation$relations <- validateRelations(freq_relations$relative)
-
-    # Group size == 0, 1 or smaller than number of people in it
-    group_data <- modifiedGroupSize(veritas_data)
-    validation$group_size <- all(group_data$size_no_ind > 0)
-
-    # Create output
-    out <- list(valide = all(unlist(validation)),
-                details = validation,
-                duplicated_ids = dupli_ids,
-                pids_locations = pids_locations,
-                freq_relations = freq_relations,
-                group_size = group_data[c("pid", "group_id", "group_size",
-                                          "nb_ind", "size_no_ind")])
-
-    # Add S3 class
-    class(out) <- "validation"
-
-    # Return
-    return(out)
 }
 
 #' Validate that nodes in relation table are from the

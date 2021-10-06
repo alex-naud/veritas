@@ -3,6 +3,7 @@
 #' @param validation_NAs Object returned by [validateNAs()]
 #' 
 #' @return NULL | Print in CLI information on NA validation
+#' @export
 print.validation.NAs <- function(validation_NAs){
 
     # Create header

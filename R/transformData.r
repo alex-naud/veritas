@@ -7,6 +7,7 @@
 #'
 #' @return A list of table list comprising locations, people,
 #' groups and relationships by pid
+#' @export
 transformData <- function(locations, people, groups, relations){
 
     # Process started

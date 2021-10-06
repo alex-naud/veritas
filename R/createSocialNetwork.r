@@ -1,4 +1,5 @@
 #' This function create a social network for each participant
+#' 
 #' @param veritas_raw: veritas data for a all participants
 #' @param group_scale: is the number of vertex generated from group are scaled
 #'                     to the square root?
@@ -6,6 +7,7 @@
 #' @seealso [createSingleSocialNetwork()] which this function wraps
 #'
 #' @return list of igraph networks
+#' @export
 createSocialNetworks <- function(veritas_all, group_scale = TRUE) {
 
 

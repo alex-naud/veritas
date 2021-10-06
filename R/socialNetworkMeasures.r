@@ -4,6 +4,8 @@
 #' 
 #' @return degree (people, groups, all), clustering coefficient and
 #' simmelian brokerage
+#' 
+#' @export
 socialNetworkMeasures <- function(social_networks){
 
     # Create a function to calculate measure on a single network

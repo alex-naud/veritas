@@ -1,16 +1,17 @@
 #' Check if there is numerical NAs
-#' 
+#'
 #' Check for negative values or 99s in numerical variables
-#' 
+#'
 #' @param locations location table
 #' @param people people table
 #' @param groups groups table
 #' @param relations relations table
-#' 
+#'
 #' @return list of validation information.
 #' Valide is a boolean indicating wether there potentialy is
 #' non standard NAs. Details is the number of non standard NAs by
 #' variables in each table.
+#' @export
 validateNAs <- function(locations, people, groups, relations){
 
     # Create list

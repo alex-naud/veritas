@@ -3,6 +3,7 @@
 #' @param veritas_data Transformed data generated from [transformData()]
 #'
 #' @return Table of social network measures
+#' @export
 interactSnMeasures <- function(veritas_data){
 
     calculateMeasures <- function(veritas_pid){

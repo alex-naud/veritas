@@ -1,3 +1,6 @@
+# Ignore .gitigore
+.gitignore
+
 # Ignore data
 /data/*
 
@@ -8,6 +11,5 @@
 /man/*
 /DESCRIPTION
 /NAMESPACE
-/Read-and-delete-me
 .Rbuildignore
 /LICENSE

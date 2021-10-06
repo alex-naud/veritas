@@ -3,6 +3,8 @@
 #' @param veritas_data Transformed data generated from [transformData()]
 #'
 #' @return Table of social network measures
+#' 
+#' @importFrom stats na.exclude sd
 #' @export
 interactSnMeasures <- function(veritas_data){
 

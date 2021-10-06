@@ -157,7 +157,7 @@ modifiedGroupSize <- function(veritas_data) {
 
     # Calculate number of individuals in groups
     group_data <- veritas_data$relations |>
-        subset(relation_type == 2) |>
+        subset(veritas_data$relations$relation_type == 2) |>
         {\(x) split(x, factor(x$node_2)) }() |>
         vapply(nrow, numeric(1)) |>
         {\(x) data.frame(group_id = names(x), nb_ind = x)}() |>

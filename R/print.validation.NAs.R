@@ -1,10 +1,10 @@
 #' Print NAs validation
 #' 
-#' @param validation_NAs Object returned by [validateNAs()]
-#' 
+#' @param x Object returned by [validateNAs()]
+#' @param ... Only used to remain consistent with plot generic function
 #' @return NULL | Print in CLI information on NA validation
 #' @export
-print.validation.NAs <- function(validation_NAs){
+print.validation.NAs <- function(x, ...){
 
     # Create header
     cli::cli_h1("NAs in numerical values")
@@ -17,10 +17,11 @@ print.validation.NAs <- function(validation_NAs){
     cli::cli_text()
 
     # Ok!
-    if(validation_NAs$valide) {
+    if(x$valide) {
 
         # Statement
-        cli::cli_alert_success("We did not find any of those in numerical variables")
+        cli::cli_alert_success(paste("We did not find any of those",
+                                     "in numerical variables"))
 
         # String variables warning
         cli::cli_alert("{.emph Check manually in string variables!}")
@@ -38,7 +39,7 @@ print.validation.NAs <- function(validation_NAs){
         cli::cli_text()
 
         # Extract tables with numerical NAs
-        index <- vapply(validation_NAs$details, 
+        index <- vapply(x$details, 
                         function(x) any(unlist(x)),
                         logical(1))
 
@@ -51,10 +52,12 @@ print.validation.NAs <- function(validation_NAs){
                 cli::cli_h2(i)
 
                 # Extract column names and print
-                cnames <- subset(names(validation_NAs$details[[i]]),
-                                unlist(validation_NAs$details[[i]]))
+                cnames <- subset(names(x$details[[i]]),
+                                unlist(x$details[[i]]))
                 cli::cli_text(paste(cnames, collapse = " | "))
             }
         }
     }
+
+    return(NULL)
 }

@@ -111,7 +111,7 @@ createPeopleData <- function(veritas_pid){
     ## Check if there is relations!
     if(!is.null(veritas_pid$relations)) {
         alter_relations <- subset(veritas_pid$relations,
-                                relation_type %in% 1,
+                                veritas_pid$relations$relation_type %in% 1,
                                 c("node_1", "node_2"))
     } else {
         alter_relations <- NULL
@@ -159,15 +159,16 @@ createGroupData <- function(veritas_pid, group_scale = TRUE) {
         ## Check if there is relations!
         if(!is.null(veritas_pid$relations)) {
             people_in_group <- subset(group_relations,
-                                    node_2 %in% gid,
-                                    "node_1", 
-                                    drop = TRUE)
+                                      group_relations$node_2 %in% gid,
+                                      "node_1",
+                                      drop = TRUE)
         } else {
             people_in_group <- NULL
         }
 
         # Calculate group size minus people in group
-        group_size <- subset(veritas_pid$groups, group_id %in% gid,
+        group_size <- subset(veritas_pid$groups,
+                             veritas_pid$groups$group_id %in% gid,
                             "group_size", drop = TRUE) - length(people_in_group)
 
         # Rescale if asked

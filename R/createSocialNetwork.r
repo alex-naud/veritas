@@ -133,8 +133,6 @@ createPeopleData <- function(veritas_pid){
 #'              are scaled to sqrt(group_size)?
 #'
 #' @return list of nodes and edges tables
-#' 
-#' @importFrom utils combn
 createGroupData <- function(veritas_pid, group_scale = TRUE) {
 
     # Create empty data frame
@@ -150,7 +148,8 @@ createGroupData <- function(veritas_pid, group_scale = TRUE) {
     # Extract group relations
     ## Check if there is relations!
     if(!is.null(veritas_pid$relations)) {
-        group_relations <- subset(veritas_pid$relations, relation_type %in% 2)
+        group_relations <- subset(veritas_pid$relations,
+                                  veritas_pid$relation_type %in% 2)
     }
 
     # Append vertex and edge data frames
@@ -190,7 +189,7 @@ createGroupData <- function(veritas_pid, group_scale = TRUE) {
         if((length(new_names) + length(people_in_group)) > 0) {
 
             # calculate all edge combinations
-            all_edges <- t(combn(c(pid, new_names, people_in_group), 2))
+            all_edges <- t(utils::combn(c(pid, new_names, people_in_group), 2))
             colnames(all_edges) <- c("node_1", "node_2")
 
             # Append edges

@@ -3,8 +3,7 @@
 #' @param veritas_data Transformed data generated from [transformData()]
 #'
 #' @return Table of social network measures
-#' 
-#' @importFrom stats na.exclude sd
+#'
 #' @export
 interactSnMeasures <- function(veritas_data){
 
@@ -74,7 +73,7 @@ interactSnMeasures <- function(veritas_data){
 
         #== Age
         age <- c(age_mean = mean(people$people_age, na.rm = TRUE),
-                 age_cv = sd(people$people_age, na.rm = TRUE) /
+                 age_cv = stats::sd(people$people_age, na.rm = TRUE) /
                           mean(people$people_age, na.rm = TRUE))
 
         #== Size and frequency by support, companionship and

@@ -13,3 +13,5 @@
 /NAMESPACE
 .Rbuildignore
 /LICENSE
+/vignettes/*
+inst/doc

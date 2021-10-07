@@ -72,6 +72,9 @@ summary.veritas.pid <- function(object, ...){
     }
 
     # Print
+    cli::cli_h2("participant")
+    cli::cli_text("pid: {pid}")
+
     cli::cli_h2("nodes")
     cli::cli_text("{nb_locations} locations")
     cli::cli_text("{nb_people} people")

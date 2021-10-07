@@ -33,6 +33,9 @@ createSocialNetworks <- function(veritas_split, group_scale = TRUE) {
     # Print process start
     cli::cli_alert_success("Process done")
 
+    # Add class
+    class(network_list) <- c("veritas.social.network.all")
+
     # Return network object
     return(network_list)
 }
@@ -74,7 +77,7 @@ createSingleSocialNetwork <- function(veritas_pid, group_scale = TRUE){
     nodes <- rbind(nodes, data.frame(name = pid, status = "ego"))
 
     # Check if there is people
-    if(!is.null(veritas_pid$people)){
+    if(!is.null(veritas_pid$people)) {
 
         # Extract people data
         people_data <- createPeopleData(veritas_pid)
@@ -96,14 +99,15 @@ createSingleSocialNetwork <- function(veritas_pid, group_scale = TRUE){
     }
 
     # Create network
-    g <- igraph::graph_from_data_frame(edges, directed = FALSE,
+    g <- igraph::graph_from_data_frame(edges, 
+                                       directed = FALSE,
                                        vertices = nodes)
 
     # Remove multiedges in case of redundancy in relation table
     g <- igraph::simplify(g, remove.multiple = TRUE, remove.loops = TRUE)
 
     # Add class
-    # class(g) <- c("igraph", "veritas.social.network")
+    class(g) <- c("veritas.social.network", "igraph")
 
     # Return network
     return(g)

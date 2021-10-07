@@ -36,8 +36,8 @@ devtools::install_github("alex-naud/veritas-r", build_vignettes = TRUE)
 ``` r
 veritas_data <- transformData(locations,
                               people,
-                              groups_sub,
-                              relations_sub)
+                              groups,
+                              relations)
 ```
 
 ## Create social networks
@@ -47,7 +47,17 @@ social_networks <- createSocialNetworks(veritas_data)
 
 ## Calculate social network measures
 ``` r
+
+# Calculate base social network indicator
 sn_measures <- socialNetworkMeasures(social_networks)
+
+# Calcul SN measures specific to InterAct project
+interact_sn_measures <- interactSnMeasures(veritas_data)
+
+# Combine both data frames
+sn_measures <- merge(base_sn_measures, interact_sn_measures, 
+                     by = "pid")
+
 ```
 
 ## Further information

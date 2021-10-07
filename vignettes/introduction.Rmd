@@ -96,8 +96,8 @@ depending on the `relation_type`:
     - `node_1` are `people_id`
     - `node_2` are `group_id`
   - `relation_type == 3`
-    - `node_1` are `location_id`
-    - `node_2` are `people_id` or `group_id`
+    - `node_1` are `people_id` or `group_id`
+    - `node_2` are `location_id`
 
 ## Group size
 

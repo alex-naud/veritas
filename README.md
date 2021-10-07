@@ -17,9 +17,34 @@ You can install the the development version from
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("alex-naud/veritas-r")
+devtools::install_github("alex-naud/veritas-r", build_vignettes = TRUE)
 ```
 
-## Details
+## Load datasets
+
+``` r
+veritas_data <- transformData(locations,
+                              people,
+                              groups_sub,
+                              relations_sub)
+```
+
+## Create social networks
+
+``` r
+social_networks <- createSocialNetworks(veritas_data)
+```
+
+## Calculate social network measures
+
+``` r
+sn_measures <- socialNetworkMeasures(social_networks)
+```
+
+## Further information
 
 For a detail presentation, see the introduction vignette
+
+``` r
+browseVignettes("veritas")
+```

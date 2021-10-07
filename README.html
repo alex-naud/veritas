@@ -36,9 +36,19 @@ body {
 <h2 id="installation">Installation</h2>
 <p>You can install the the development version from <a href="https://github.com/">GitHub</a> with:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&quot;devtools&quot;)</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;alex-naud/veritas-r&quot;</span>)</span></code></pre></div>
-<h2 id="details">Details</h2>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;alex-naud/veritas-r&quot;</span>, <span class="at">build_vignettes =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<h2 id="load-datasets">Load datasets</h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>veritas_data <span class="ot">&lt;-</span> <span class="fu">transformData</span>(locations,</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>                              people,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                              groups_sub,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>                              relations_sub)</span></code></pre></div>
+<h2 id="create-social-networks">Create social networks</h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>social_networks <span class="ot">&lt;-</span> <span class="fu">createSocialNetworks</span>(veritas_data)</span></code></pre></div>
+<h2 id="calculate-social-network-measures">Calculate social network measures</h2>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>sn_measures <span class="ot">&lt;-</span> <span class="fu">socialNetworkMeasures</span>(social_networks)</span></code></pre></div>
+<h2 id="further-information">Further information</h2>
 <p>For a detail presentation, see the introduction vignette</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">browseVignettes</span>(<span class="st">&quot;veritas&quot;</span>)</span></code></pre></div>
 
 </body>
 </html>

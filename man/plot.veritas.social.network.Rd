@@ -7,11 +7,11 @@
 \method{plot}{veritas.social.network}(g, groups = TRUE, labels = FALSE)
 }
 \arguments{
+\item{g}{An object of class \code{veritas.social.network}}
+
 \item{groups}{Boolean. Define if groups are displayed}
 
 \item{labels}{Boolean. Define if labels are displayed}
-
-\item{networks}{An object of class \code{veritas.social.network}}
 }
 \description{
 Plot a social networks generated with \code{\link[=createSocialNetwork]{createSocialNetwork()}}

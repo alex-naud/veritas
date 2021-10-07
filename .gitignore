@@ -3,3 +3,8 @@
 
 # Ignore development files
 /dev/*
+
+# Vignette related stuff
+inst/doc
+/doc/
+/Meta/

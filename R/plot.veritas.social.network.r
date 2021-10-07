@@ -1,7 +1,7 @@
 #! Add escape character to add in library
 #' Plot social networks
 #'
-#' Plot successively all social networks generated with [createSocialNetwork()]
+#' Plot successively all social networks generated with [createSocialNetworks()]
 #' Navigate using left right arrows
 #'
 #' Method of the [plot()] generic function that run on object
@@ -59,7 +59,7 @@ plot.veritas.social.network.all <- function(networks,
 #' Method of the [plot()] generic function that run on object
 #' of class `veritas.social.network`.
 #'
-#' @param networks An object of class `veritas.social.network`
+#' @param g An object of class `veritas.social.network`
 #' @param groups Boolean. Define if groups are displayed
 #' @param labels Boolean. Define if labels are displayed
 #'
@@ -91,7 +91,7 @@ plot.veritas.social.network <- function(g, groups = TRUE, labels = FALSE) {
                                              vertex.label = NA)
 
     # Add id
-    title(main = pid)
+    graphics::title(main = pid)
 }
 
 #' Read keypress
@@ -106,7 +106,7 @@ plot.veritas.social.network <- function(g, groups = TRUE, labels = FALSE) {
 readkeygraph <- function(prompt) {
 
     # Prompt and return pressed key
-    getGraphicsEvent(
+    grDevices::getGraphicsEvent(
         prompt = prompt,
         onMouseDown = NULL, onMouseMove = NULL,
         onMouseUp = NULL, onKeybd = onKeybd,

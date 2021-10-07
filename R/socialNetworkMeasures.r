@@ -4,15 +4,15 @@
 #' generated from Veritas data.
 #'
 #' Calculate the following measures:
-#'  * *people_degree:* Number of individually reported people
-#'  * *group_degree:* Number of people generated from groups
-#'  * *degree:* Number of people
-#'  * *clustering:* Participant clustering coefficient. Equivalent of the
+#'  - *people_degree:* Number of individually reported people
+#'  - *group_degree:* Number of people generated from groups
+#'  - *degree:* Number of people
+#'  - *clustering:* Participant clustering coefficient. Equivalent of the
 #'    network density without relations between the participants and the alters.
-#'  * *simmelian:* Simmelian brokerage.
+#'  - *simmelian:* Simmelian brokerage.
 #'    See [Latora et al., 2013](https://doi.org/10.1007/s10955-013-0722-z)
 #'
-#' @param social_networks networks generated with [createSocialNetwork()]
+#' @param social_networks networks generated with [createSocialNetworks()]
 #'
 #' @return Data frame of network measures by participant
 #'

@@ -7,7 +7,7 @@
 socialNetworkMeasures(social_networks)
 }
 \arguments{
-\item{social_networks}{networks generated with \code{\link[=createSocialNetwork]{createSocialNetwork()}}}
+\item{social_networks}{networks generated with \code{\link[=createSocialNetworks]{createSocialNetworks()}}}
 }
 \value{
 Data frame of network measures by participant

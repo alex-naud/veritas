@@ -1,3 +1,7 @@
 ^\.gitignore$
 ^dev$
 ^LICENSE\.md$
+^README\.Rmd$
+^README\.html$
+^doc$
+^Meta$

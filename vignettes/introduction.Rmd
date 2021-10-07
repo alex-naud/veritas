@@ -1,8 +1,8 @@
 ---
-title: "Introduction to veritas"
+title: "introduction to veritas"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Introduction to veritas}
+  %\VignetteIndexEntry{introduction to veritas}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

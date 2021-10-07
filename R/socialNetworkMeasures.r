@@ -1,10 +1,21 @@
-#' Calculate network measures from veritas generated social networks
-#' 
+#' Calculate social network measures
+#'
+#' This function calculate network measures from social networks 
+#' generated from Veritas data.
+#'
+#' Calculate the following measures:
+#'  * *people_degree:* Number of individually reported people
+#'  * *group_degree:* Number of people generated from groups
+#'  * *degree:* Number of people
+#'  * *clustering:* Participant clustering coefficient. Equivalent of the
+#'    network density without relations between the participants and the alters.
+#'  * *simmelian:* Simmelian brokerage.
+#'    See [Latora et al., 2013](https://doi.org/10.1007/s10955-013-0722-z)
+#'
 #' @param social_networks networks generated with [createSocialNetwork()]
-#' 
-#' @return degree (people, groups, all), clustering coefficient and
-#' simmelian brokerage
-#' 
+#'
+#' @return Data frame of network measures by participant
+#'
 #' @export
 socialNetworkMeasures <- function(social_networks){
 
@@ -41,12 +52,15 @@ socialNetworkMeasures <- function(social_networks){
 }
 
 #' Calculate Simmelian Brokerage
-#' Adapted from a code by Christopher G. Watson; cgwatson@bu.edu
-#' Retrieve from https://pastebin.com/XqkEYtJS
+#'
+#' Adapted from a code by Christopher G. Watson.
+#'  Retrieve from https://pastebin.com/XqkEYtJS
 #'
 #' @param g igraph network object generated with createSocialNetwork.r
 #'
 #' @return Simmelian Brokerage measure
+#'
+#' @noRd
 simmelianBrokerage <- function(g){
 
   # Return NA if there is only less than two alter

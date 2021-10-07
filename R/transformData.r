@@ -1,12 +1,20 @@
 #' Split veritas data by pid
 #'
-#' @param locations location table
-#' @param people people table
-#' @param groups groups table
-#' @param relations relations table
+#' This function seperate the four input tables by participant.
 #'
-#' @return A list of table list comprising locations, people,
-#' groups and relationships by pid
+#' For every participant, it extract their locations, people, groups and 
+#'  relations, and create NULL object if the participant have none of them
+#'  (e.g., return NULL for people if the participant have not reported any).
+#'
+#' @param locations Location Veritas table
+#' @param people People Veritas table
+#' @param groups Groups Veritas table
+#' @param relations Relations Veritas table
+#'
+#' @seealso Check vignette (ADD VIGNETTE) for the format of the input tables.
+#'
+#' @return A list of list of tables by participant.
+#' 
 #' @export
 transformData <- function(locations, people, groups, relations){
 

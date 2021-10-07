@@ -1,16 +1,21 @@
-#' Check if there is numerical NAs
+#' Validate NAs in numerical variables
 #'
-#' Check for negative values or 99s in numerical variables
+#' Check for negative vlaues or 99 in numerical variables
 #'
-#' @param locations location table
-#' @param people people table
-#' @param groups groups table
-#' @param relations relations table
+#' This step was added as non standard NAs were found in Veritas data
+#'  of the InterAct project. It is run by [transformData()], but only
+#'  generate a `warning` if non standard NAs are found.
 #'
-#' @return list of validation information.
-#' Valide is a boolean indicating wether there potentialy is
-#' non standard NAs. Details is the number of non standard NAs by
-#' variables in each table.
+#' @param locations Locations Veritas table
+#' @param people People Veritas table
+#' @param groups Groups Veritas table
+#' @param relations Relations Veritas table
+#'
+#' @return An object of class `validation.NAs`, which is a
+#' list comprising `valide`, a boolean indicating wether there potentialy
+#' is non standard NAs, and `details`, the number of non standard NAs
+#' by variables in each table.
+#'
 #' @export
 validateNAs <- function(locations, people, groups, relations){
 

@@ -1,8 +1,12 @@
-#' Calculate social network measures for interact project
+#' Calculate SN measures from InterAct data
+#'
+#' Calculate social network measures for Veritas data collected from
+#'  the InterAct research project.
+#'  See [InterAct web site](https://teaminteract.ca) for more information.
 #'
 #' @param veritas_data Transformed data generated from [transformData()]
 #'
-#' @return Table of social network measures
+#' @return Table of social network measures. See vignette (CREATE VIGNETTE).
 #'
 #' @export
 interactSnMeasures <- function(veritas_data){

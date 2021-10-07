@@ -1,12 +1,19 @@
-#' This function create a social network for each participant
+#' Constructor of social networks
 #' 
-#' @param veritas_split veritas data for a all participants
-#' @param group_scale is the number of vertex generated from group are scaled
-#'                     to the square root?
+#' This function return the set of all social networks from a Veritas dataset.
 #'
-#' @seealso [createSingleSocialNetwork()] which this function wraps
+#' Generates a set of igraph networks,
+#' each of which includes a participant and the people linked to him
+#' (either reported individually or from groups).
 #'
-#' @return list of igraph networks
+#' @param veritas_split A list of veritas data for a all participants.
+#'  See [transformData()].
+#' @param group_scale Boolean. Declare if the number of vertex generated
+#' from group are scaled to the square root.
+#'
+#' @seealso This function is a wrapper of [createSingleSocialNetwork()].
+#'
+#' @return A List of igraph networks.
 #' @export
 createSocialNetworks <- function(veritas_split, group_scale = TRUE) {
 
@@ -26,14 +33,18 @@ createSocialNetworks <- function(veritas_split, group_scale = TRUE) {
     return(network_list)
 }
 
-#' This function create a social network for a single participant
-#' @param veritas_pid veritas data for a single participant
-#' @param group_scale is the number of vertex generated from group are scaled
-#'                     to the square root?
+#' Social network constructor
 #'
-#' @seealso [createPeopleData()] and [createGroupData()]
-#'          which this function call
-#''
+#' This function create a social network for a single participant,
+#'
+#' Generate an igraph networks which include the participant and
+#'  the people linked to him (either reported individually of from groups),
+#'
+#' @param veritas_pid Veritas data for a single participant.
+#'  See [transformData()].
+#' @param group_scale Boolean. Declare if the number of vertex generated
+#' from group are scaled to the square root.
+#'
 #' @return A single igraph network
 #' @export
 createSingleSocialNetwork <- function(veritas_pid, group_scale = TRUE){
@@ -89,14 +100,20 @@ createSingleSocialNetwork <- function(veritas_pid, group_scale = TRUE){
     return(g)
 }
 
-#' @title Extract people data
-#' Create a node table with n people
-#' Create an edge table with relations between ego and people,
-#' and in between people
-#
-#' @param veritas_pid veritas data for a single participant
+#' Extract people data
+#' 
+#' Extract nodes and edges from people data.
 #'
-#' @return list of nodes and edges tables
+#' This function extract people information and return two tables,
+#' one with people, and the other with the relations between ego and people,
+#' and in between people.
+#
+#' @param veritas_pid Veritas data for a single participant.
+#'  See [transformData()].
+#'
+#' @return Two elements list comprising nodes and edges tables.
+#'
+#' @noRd
 createPeopleData <- function(veritas_pid){
 
     # Extract pid and people_id
@@ -123,17 +140,23 @@ createPeopleData <- function(veritas_pid){
                 edges = rbind(ego_relations, alter_relations)))
 }
 
-#' @title Extrac group data
-#' Create a node table with n people proportional to group size
-#' Create an edge table with people from group,
-#' people belonging to group (in people data) and ego,
-#' fully connected to each other
+#' Extract group data
+#'
+#' Extract nodes and edges from group data.
+#'
+#' This function extract people information and return two tables,
+#' one with n people extracted from groups, and the other with the relations
+#' between the participant and the newly generated people, and in between
+#' all the people from same groups.
 #
-#' @param veritas_pid veritas data for a single participant
-#' @param group_scale is the number of vertex generated from group
-#'              are scaled to sqrt(group_size)?
+#' @param veritas_pid Veritas data for a single participant.
+#'  See [transformData()].
+#' @param group_scale Boolean. Declare if the number of vertex generated
+#'  from group are scaled to the square root.
 #'
 #' @return list of nodes and edges tables
+#'
+#' @noRd
 createGroupData <- function(veritas_pid, group_scale = TRUE) {
 
     # Create empty data frame

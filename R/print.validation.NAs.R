@@ -1,8 +1,16 @@
 #' Print NAs validation
-#' 
+#'
+#' This is a method of the [print()] function for object
+#'  of class `validation.NAs` generated from [validateNAs()].
+#'
+#' Print on the command line interface the column names with
+#'  founded non standard NAs (i.e., values < 0 or == 99).
+#'
 #' @param x Object returned by [validateNAs()]
+#'
 #' @param ... Only used to remain consistent with plot generic function
-#' @return NULL | Print in CLI information on NA validation
+#'
+#' @return NULL
 #' @export
 print.validation.NAs <- function(x, ...){
 
@@ -32,9 +40,6 @@ print.validation.NAs <- function(x, ...){
         cli::cli_alert_warning(
             "We found potential numerical NAs in the following columns")
 
-        # String variables warning
-        cli::cli_alert_warning("{.emph Check manually in string columns!}")
-
         # Empty space
         cli::cli_text()
 
@@ -57,6 +62,9 @@ print.validation.NAs <- function(x, ...){
                 cli::cli_text(paste(cnames, collapse = " | "))
             }
         }
+
+        # String variables warning
+        cli::cli_alert_warning("{.emph Check manually in string columns!}")
     }
 
     return(NULL)

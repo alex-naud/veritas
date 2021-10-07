@@ -17,6 +17,10 @@
 #' @export
 createSocialNetworks <- function(veritas_split, group_scale = TRUE) {
 
+    # Check if object if of class veritas.split
+    if(!inherits(veritas_split, "veritas.split")) {
+        cli::cli_abort("Object is not of class veritas.split")
+    }
 
     # Print process start
     cli::cli_alert_info("Generating Social Networks")
@@ -48,6 +52,11 @@ createSocialNetworks <- function(veritas_split, group_scale = TRUE) {
 #' @return A single igraph network
 #' @export
 createSingleSocialNetwork <- function(veritas_pid, group_scale = TRUE){
+
+    # Check if object if of class veritas.pid
+    if(!inherits(veritas_pid, "veritas.pid")) {
+        cli::cli_abort("Object is not of class veritas.pid")
+    }
 
     # Extract pid
     pid <- attr(veritas_pid, "pid")

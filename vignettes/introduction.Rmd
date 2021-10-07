@@ -110,15 +110,15 @@ people that belong to groups (i.e., `relation_type == 2`)
 `locations`, `people`, `groups` and `relations` table are loaded using the 
 `transformData()` function.
 
-```{r load, message = FALSE}
+```{r load, message = FALSE, eval = FALSE}
 # Load library
 library(veritas)
 
 # Load veritas data
-veritas_data <- transformData(veritas::locations,
-                              veritas::people,
-                              veritas::groups,
-                              veritas::relations)
+veritas_data <- transformData(locations,
+                              people,
+                              groups,
+                              relations)
 ```
 
 # Validation
@@ -126,22 +126,6 @@ veritas_data <- transformData(veritas::locations,
 `transformData()` check if input datasets are valid by calling two functions, 
 `validateData()` and `validateNAs()`. These functions can be called directly
 to obtain a more detailed assessment.
-
-```{r validate data}
-# Load veritas data
-validateData(veritas::locations,
-             veritas::people,
-             veritas::groups,
-             veritas::relations)
-```
-
-```{r validate NAs}
-# Load veritas data
-validateNAs(veritas::locations,
-             veritas::people,
-             veritas::groups,
-             veritas::relations)
-```
 
 # Social network analysis
 
@@ -156,6 +140,12 @@ First we need to create a social network object
 social_networks <- createSocialNetworks(veritas_data)
 ```
 
+This networks can also be plot
+```{r plot social networks, eval = FALSE}
+# Create social network
+plot(social_networks[[1]])
+```
+
 ## Calculate measures
 Then we can calculate social network indicators
 
@@ -165,7 +155,6 @@ Then we can calculate social network indicators
 base_sn_measures <- socialNetworkMeasures(social_networks)
 
 # Calcul SN measures specific to InterAct project
-# THIS WONT WORK WITH DUMMY DATA SETS!!
 interact_sn_measures <- interactSnMeasures(veritas_data)
 
 # Combine both data frames

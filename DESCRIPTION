@@ -1,0 +1,27 @@
+Package: veritas
+Title: Toolkit for working with veritas data
+Type: Package
+Version: 0.1.0
+Date: 2021-10-04
+Author: Alexandre Naud [aut, cre]
+Maintainer: Alexandre Naud <alexandre.naud@gmail.com>
+Description: 
+    Set of functions to load, transform and calculate 
+    variables from data generated using the veritas tool.
+    See https://doi.org/10.1016/j.healthplace.2020.102454 for further
+    description of this tool.
+Depends: 
+    R (>= 4.0.0)
+Imports: 
+    cli, 
+    igraph
+Suggests: 
+    rmarkdown,
+    knitr
+Encoding: UTF-8
+LazyData: true
+License: MIT + file LICENSE
+URL: https://github.com/alex-naud/veritas-r
+RoxygenNote: 7.1.1
+Roxygen: list(markdown = TRUE)
+VignetteBuilder: knitr

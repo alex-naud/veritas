@@ -1,0 +1,176 @@
+---
+title: "Introduction to veritas"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to veritas}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+The veritas package is a set of functions developped to analyze data
+generated with the Veritas questionnaire, an interactive map-based questionnaire
+to collect related information on people social networks and activity space.
+For more information on this questionnaire, 
+see [Naud et al., 2020](https://doi.org/10.1016/j.healthplace.2020.102454).
+
+# Input data
+
+This package need four different tables with specific formats to work properly:
+
+  1. `location` The set of all locations visited by the participants
+  2. `people` The set of all people seen by the participants
+  3. `groups` The set of all groups seen by the participants
+  4. `relations` The set of all relations in-between locations, people and groups
+
+Note that these tables can be names differently, as they will be used
+as a function parameters (see following sections).
+
+These tables need to have some specificity described below.
+These can be automaticaly tested through `validateData()` function.
+
+## Required columns
+
+The following columns are mandatory for the package to work properly.
+The column names **must** be those discussed below. The tables can contains
+other variables that are useful for the user.
+
+  - `locations`
+    - `pid` The unique participant identifiers
+    - `location_id` The unique location identifiers
+
+  - `people`
+    - `pid` The unique participant identifiers
+    - `people_id` The unique people identifiers
+
+  - `groups`
+    - `pid` The unique participant identifiers
+    - `group_id` The unique group identifiers
+    - `group_size` The size of each group
+
+  - `relations`
+    - `pid` The unique participant identifiers
+    - `node_1` The unique identifiers of the first node
+    - `node_2` The unique identifiers of the second node
+    - `relation_type` The relation type 
+    (see below for further detail on this variable)
+
+## Locations, people and groups identifiers
+All `locations_id` and `people_id` and `group_id` must be unique.
+
+## Participant identifiers
+
+All participant identifiers (i.e., `pid`) found in `people`, `groups`, 
+and `relations` tables must be found in the `locations` table.
+
+According to Veritas data collection protocol, should identify at least
+their home as an activity locations, and therefore must be found in the
+`locations` table.
+
+## Relation type
+
+`relation_type` is a categorical variables that can take three numerical
+values:
+
+  - `1` The relation in-between people (i.e., who know whom)
+  - `2` The relation between people and groups 
+  (i.e., who is part of which groups)
+  - `3` The relation between location and people / group 
+  (i.e., In which locations people or groups are seen).
+
+## node_1 and node_2
+
+In the `relation` table, `node_1` and `node_2` identify specific elements
+depending on the `relation_type`:
+
+  - `relation_type == 1`
+    - `node_1` and `node_2` are `people_id`
+
+  - `relation_type == 2`
+    - `node_1` are `people_id`
+    - `node_2` are `group_id`
+  - `relation_type == 3`
+    - `node_1` are `location_id`
+    - `node_2` are `people_id` or `group_id`
+
+## Group size
+
+All group size should be greater than 0, and this when removing for the 
+people that belong to groups (i.e., `relation_type == 2`)
+
+
+# Load data
+
+`locations`, `people`, `groups` and `relations` table are loaded using the 
+`transformData()` function.
+
+```{r load, message = FALSE}
+# Load library
+library(veritas)
+
+# Load veritas data
+veritas_data <- transformData(veritas::locations,
+                              veritas::people,
+                              veritas::groups,
+                              veritas::relations)
+```
+
+# Validation
+
+`transformData()` check if input datasets are valid by calling two functions, 
+`validateData()` and `validateNAs()`. These functions can be called directly
+to obtain a more detailed assessment.
+
+```{r validate data}
+# Load veritas data
+validateData(veritas::locations,
+             veritas::people,
+             veritas::groups,
+             veritas::relations)
+```
+
+```{r validate NAs}
+# Load veritas data
+validateNAs(veritas::locations,
+             veritas::people,
+             veritas::groups,
+             veritas::relations)
+```
+
+# Social network analysis
+
+Veritas data can be transformed into social networks using
+`relation_type %in% c(1, 2)`.
+
+## Generate social networks
+First we need to create a social network object
+
+```{r create social networks, eval = FALSE}
+# Create social network
+social_networks <- createSocialNetworks(veritas_data)
+```
+
+## Calculate measures
+Then we can calculate social network indicators
+
+```{r calculate social measures, eval = FALSE}
+
+# Calculate base social network indicator
+base_sn_measures <- socialNetworkMeasures(social_networks)
+
+# Calcul SN measures specific to InterAct project
+# THIS WONT WORK WITH DUMMY DATA SETS!!
+interact_sn_measures <- interactSnMeasures(veritas_data)
+
+# Combine both data frames
+sn_measures <- merge(base_sn_measures, interact_sn_measures, 
+                     by = "pid")
+
+```
+

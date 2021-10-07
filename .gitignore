@@ -1,13 +1,11 @@
 # Ignore .gitigore
 .gitignore
 
-# Ignore data
-/data/*
-
 # Ignore development files
 /dev/*
 
 # Ignore R package files (for now...)
+/data/*
 /man/*
 /DESCRIPTION
 /NAMESPACE

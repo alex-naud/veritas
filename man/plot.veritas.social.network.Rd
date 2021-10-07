@@ -14,7 +14,7 @@
 \item{labels}{Boolean. Define if labels are displayed}
 }
 \description{
-Plot a social networks generated with \code{\link[=createSocialNetwork]{createSocialNetwork()}}
+Plot a social networks generated with \code{\link[=createSocialNetworks]{createSocialNetworks()}}
 }
 \details{
 Method of the \code{\link[=plot]{plot()}} generic function that run on object

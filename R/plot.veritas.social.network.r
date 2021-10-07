@@ -54,7 +54,7 @@ plot.veritas.social.network.all <- function(networks,
 
 #' Plot social network
 #'
-#' Plot a social networks generated with [createSocialNetwork()]
+#' Plot a social networks generated with [createSocialNetworks()]
 #'
 #' Method of the [plot()] generic function that run on object
 #' of class `veritas.social.network`.

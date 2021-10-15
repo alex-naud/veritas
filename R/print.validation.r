@@ -98,7 +98,7 @@ messageColumns <- function(v_col) {
             ifelse(v_col[[name]][x],
                 paste("{.success v}", x),
                 paste("{.fail x}", x))
-        }) |> unlist()
+        }) %>% unlist()
 
         # Print column validation
         cli::cli_text(paste(msg, collapse = " | "))

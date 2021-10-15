@@ -66,11 +66,11 @@ createSingleSocialNetwork <- function(veritas_pid, group_scale = TRUE){
 
     # Create empty data.frame for nodes and edges
     nodes <- matrix(nrow = 0, ncol = 2,
-                    dimnames = list(NULL, c("name", "status"))) |>
+                    dimnames = list(NULL, c("name", "status"))) %>%
                 data.frame()
 
     edges <- matrix(nrow = 0, ncol = 2,
-                    dimnames = list(NULL, c("node_1", "node_2"))) |>
+                    dimnames = list(NULL, c("node_1", "node_2"))) %>%
                 data.frame()
 
     # Ego

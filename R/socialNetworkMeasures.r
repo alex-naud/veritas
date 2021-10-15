@@ -28,7 +28,7 @@ socialNetworkMeasures <- function(social_networks){
         all_degree <- people_degree + group_degree
 
         # Clustering
-        cc <- igraph::induced.subgraph(g, igraph::V(g)$status != "ego") |>
+        cc <- igraph::induced.subgraph(g, igraph::V(g)$status != "ego") %>%
                     igraph::graph.density()
 
         # Simmelian brokerage

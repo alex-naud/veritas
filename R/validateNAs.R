@@ -34,7 +34,7 @@ validateNAs <- function(locations, people, groups, relations){
         # Remove ids
         numeric_index[grepl("(p|_)id$", names(numeric_index))] <- FALSE
 
-        subset(x, select = numeric_index) |>
+        subset(x, select = numeric_index) %>%
             lapply(function(x) any(stats::na.exclude(x) < 0 | 
                                    stats::na.exclude(x) %in% 99))
 

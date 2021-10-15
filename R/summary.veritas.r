@@ -53,16 +53,16 @@ summary.veritas.pid <- function(object, ...){
 
     if(!is.null(object$relations)) {
 
-    nb_relations_people <- object$relations |>
-                            subset(object$relations$relation_type == 1) |>
+    nb_relations_people <- object$relations %>%
+                            subset(object$relations$relation_type == 1) %>%
                             nrow()
 
-    nb_relations_groups <- object$relations |>
-                            subset(object$relations$relation_type == 2) |>
+    nb_relations_groups <- object$relations %>%
+                            subset(object$relations$relation_type == 2) %>%
                             nrow()
 
-    nb_relations_locations <- object$relations |>
-                            subset(object$relations$relation_type == 3) |>
+    nb_relations_locations <- object$relations %>%
+                            subset(object$relations$relation_type == 3) %>%
                             nrow()
 
     } else {

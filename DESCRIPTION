@@ -14,7 +14,8 @@ Depends:
     R (>= 4.0.0)
 Imports: 
     cli, 
-    igraph
+    igraph,
+    magrittr
 Suggests: 
     rmarkdown,
     knitr

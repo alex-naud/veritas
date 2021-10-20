@@ -266,11 +266,11 @@ messageRelations <- function(relative_freqs){
     # Print locations
     cli::cli_text("{.strong Location relations}")
 
-    ## Print location
-    location_val <- relative_freqs[[3]][2, 1] * 100
-    cliPrintLine(location_val, "node_2", "location_id")
-
     ## Sum people an group ids
     social_val <- sum(relative_freqs[[3]][1, 2:3]) * 100
     cliPrintLine(social_val, "node_1", "people_id or group_id")
+
+    ## Print location
+    location_val <- relative_freqs[[3]][2, 1] * 100
+    cliPrintLine(location_val, "node_2", "location_id")
 }

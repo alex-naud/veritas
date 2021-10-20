@@ -4,7 +4,7 @@
 \alias{transformData}
 \title{Split veritas data by pid}
 \usage{
-transformData(locations, people, groups, relations)
+transformData(locations, people, groups, relations, clean_group = TRUE)
 }
 \arguments{
 \item{locations}{Location Veritas table}

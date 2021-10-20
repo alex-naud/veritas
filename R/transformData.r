@@ -14,12 +14,28 @@
 #' @seealso Check vignette (ADD VIGNETTE) for the format of the input tables.
 #'
 #' @return A list of list of tables by participant.
-#' 
+#'
 #' @export
-transformData <- function(locations, people, groups, relations){
+transformData <- function(locations, people,
+                          groups, relations,
+                          clean_group = TRUE){
 
     # Process started
     cli::cli_alert_info("Process started")
+
+    # Run group cleaning
+    if(clean_group == TRUE){
+
+        # Clean group
+        out <- cleanGroupData(groups, relations)
+
+        # Replace relations and groups
+        relations <- out$relations
+        groups <- out$groups
+
+        # CLI
+        groupCleaningMessage(groups, relations)
+    }
 
     # Run validation
     validation <- validateData(locations, people, groups, relations)
@@ -107,4 +123,45 @@ transformData <- function(locations, people, groups, relations){
 
     # Return
     return(out)
+}
+
+#' Inside function of [transformData()]
+#'
+#' Print information from [cleanGroupData()]
+#'
+#' @param groups Groups table modified by [cleanGroupData()]
+#' @param relations Relations table modified by [cleanGroupData()]
+#'
+#' @return NULL | Impure function that print on the CLI
+#' @noRd
+groupCleaningMessage <- function(groups, relations){
+
+    # Print
+        # Define theming
+        cli::cli_div(theme = list(span.add = list(color = "green"),
+                                  span.remove = list(color = "red")))
+
+        cli::cli_alert_info(
+            paste("{.add {attr(relations, 'added_people_people')}}",
+                  "relations in-between people were added",
+                  sep = " ")
+        )
+
+        cli::cli_alert_info(
+            paste("{.add {attr(relations, 'added_people_locations')}}",
+                  "relations between people and locations were added",
+                  sep = " ")
+        )
+
+        cli::cli_alert_info(
+            paste("{.remove {attr(relations, 'removed_group_size_0')}}",
+                  "relations involving groups were removed",
+                  sep = " ")
+        )
+
+        cli::cli_alert_info(
+            paste("{.remove {attr(groups, 'removed_group_size_0')}}",
+                  "group(s) were removed",
+                  sep = " ")
+        )
 }

@@ -163,8 +163,11 @@ messageGroups <- function(group_data){
     cli::cli_div(theme = list(span.success = list(color = "green"),
                               span.fail = list(color = "red")))
 
-    # Calculate number of group <= 0
-    count <- sum(group_data$size_no_ind <= 0)
+    # Calculate number of group with a size <= 0
+    count <- sum(group_data$size_no_ind <= 0, na.rm = TRUE)
+
+    # Calculate number of group without size
+    count_NA <- sum(is.na(group_data$size_no_ind))
 
     # Header
     cli::cli_h1("Group size")
@@ -176,6 +179,16 @@ messageGroups <- function(group_data){
         } else {
             cli::cli_text(
                 "{.fail {count}} groups have a size <= 0"
+            )
+        }
+
+    # Print message
+    if(count_NA == 0) {
+            cli::cli_text(
+                "{.success {count_NA}} groups have group size == NA")
+        } else {
+            cli::cli_text(
+                "{.fail {count_NA}} groups have group size == NA"
             )
         }
 

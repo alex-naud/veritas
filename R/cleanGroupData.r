@@ -13,6 +13,9 @@
 #' @noRd
 cleanGroupData <- function(groups, relations){
 
+    # Change NAs for group size
+    groups[is.na(groups$group_size), "group_size"] <- 0
+
     # Extract group <-> people relations
     groups_people_relations <- relations %>%
         subset(relations$node_2 %in% groups$group_id &
@@ -70,7 +73,7 @@ addPeopleRelations <- function(x, relations){
     # Run only for groups with more than 1 separatedely reported person
     if(nrow(x) > 1){
 
-        # Extract only people relations for the pid from relation table
+        # Extract only people relations for this pid in relation table
         sub <- subset(relations, relations$pid == unique(x$pid) &
                                  relations$relation_type == 1)
 
@@ -89,12 +92,18 @@ addPeopleRelations <- function(x, relations){
 
             if(sum(bool) == 0) {
 
-                # Create a new row
+                # Create a new row (use first row of sub)
                 new_row <- sub[1, ]
 
                 # Replace node_1 and node_2
                 new_row$node_1 <- rel[1,i]
                 new_row$node_2 <- rel[2,i]
+
+                # Add relation type
+                new_row$relation_type <- 1
+
+                # Replace PID (in case sub is empty)
+                new_row$pid <- unique(x$pid)
 
                 # Append
                 out <- rbind(out, new_row)
@@ -119,7 +128,7 @@ addPeopleLocationsRelations <- function(x, relations) {
 
     # Extract the locations to which this group is connected
     loc <- relations %>%
-        subset(relations$relation_type %in% 3 & 
+        subset(relations$relation_type %in% 3 &
                relations$node_1 %in% x$node_2,
                "node_2",
                drop = TRUE)
@@ -153,6 +162,12 @@ addPeopleLocationsRelations <- function(x, relations) {
             # Replace node_1 and node_2
             new_row$node_1 <- rel[i, 1]
             new_row$node_2 <- rel[i, 2]
+
+            # Add relation type
+            new_row$relation_type <- 3
+
+            # Replace PID (in case sub is empty)
+            new_row$pid <- unique(x$pid)
 
             # Append
             out <- rbind(out, new_row)

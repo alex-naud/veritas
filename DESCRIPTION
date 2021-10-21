@@ -1,7 +1,7 @@
 Package: veritas
 Title: Toolkit for working with veritas data
 Type: Package
-Version: 0.1.0
+Version: 0.1.1
 Date: 2021-10-04
 Author: Alexandre Naud [aut, cre]
 Maintainer: Alexandre Naud <alexandre.naud@gmail.com>

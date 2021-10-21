@@ -156,7 +156,7 @@ compareRelationIds <- function(veritas_data) {
 #' @noRd
 duplicatedIds <- function(veritas_data){
 
-    dupli_ids <- mapply(function(x, y) sum(duplicated(x$y)),
+    dupli_ids <- mapply(function(x, y) sum(duplicated(x[y])),
         veritas_data[c("locations", "people", "groups")],
         c("location_id", "people_id", "group_id"))
 
